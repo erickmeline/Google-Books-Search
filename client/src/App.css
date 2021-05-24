@@ -2,3 +2,15 @@
   background-color:dimgray;
   color: #ddd;
 }
+ul {
+  margin: 0;
+  padding: 0;
+}
+.card .float-right {
+  padding-top: 5px;
+  text-align: right;
+}
+.card-body .col-md-2 {
+  max-height: 200px;
+  overflow: hidden;
+}

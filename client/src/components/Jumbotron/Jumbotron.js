@@ -1,8 +1,6 @@
 import React from "react";
-import { Link, useLocation } from "react-router-dom";
 
 function Jumbotron(props) {
-  const location = useLocation();
   return (
     <div className="jumbotron jumbotron-fluid">
       <div className="container">

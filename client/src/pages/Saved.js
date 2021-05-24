@@ -6,10 +6,11 @@ const Saved = () => {
   const [savedResults, setsavedResults] = useState([]);
 
   useEffect(() => {
-    API.getBooks().then((res) => {
+    API.getBooks().then(res => {
       setsavedResults(res);
     });
-  });
+    },
+  []);
 
   const handleSave = (book) => {
     console.log('save',book);

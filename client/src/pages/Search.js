@@ -13,7 +13,7 @@ const Search = () => {
 
   const handleClick = (e) => {
     e.preventDefault();
-    API.getBook(inputEl.current.value).then((res) => {
+    API.getGoogle(inputEl.current.value).then((res) => {
       if (res.data.totalItems) {
         const books = res.data.items.map(bookData => book(bookData));
         setsearchResults(books);
@@ -26,16 +26,16 @@ const Search = () => {
 
   const handleSave = (book) => {
     console.log('save',book);
-    API.saveBook(book).then((res) => {
+    API.saveBooks(book).then((res) => {
       console.log('res',res);
     });
   }
 
   const book = (bookData) => {
     return {
-      id: bookData.id,
+      _id: bookData.id,
       title: bookData.volumeInfo.title,
-      authors: bookData.volumeInfo.authors.length > 1 ? bookData.volumeInfo.authors.join(', ') : bookData.volumeInfo.authors.join(''),
+      authors: bookData.volumeInfo.authors,
       description: bookData.volumeInfo.description,
       image: bookData.volumeInfo.imageLinks ? bookData.volumeInfo.imageLinks.thumbnail : null,
       infoLink: bookData.volumeInfo.infoLink
@@ -53,7 +53,7 @@ const Search = () => {
         !searchResults.length && searchTerm.length ?
         <h3>No Results</h3> :
         searchResults.length && searchTerm.length ?
-        <div><h3>Results</h3><ul>{searchResults.map((book) => <Results key={book.id} book={book} handleSave={handleSave} />)}</ul></div> :
+        <div><h3>Results</h3><ul>{searchResults.map((book) => <Results key={book._id} book={book} handleSave={handleSave} />)}</ul></div> :
         null
       }
 

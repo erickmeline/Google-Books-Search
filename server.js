@@ -34,8 +34,8 @@ app.get("/api/books", (req, res) => {
 
 
 // save book to mongo req.body
-app.post("/api/book", (req, res) => {
-  db.create(req.body).then((newBook) => {
+app.post("/api/books", (req, res) => {console.log('save req',req.body);
+  db.Book.create(req.body).then((newBook) => {
     res.json(newBook);
   }).catch(err => {
       res.status(400).json(err);
@@ -45,7 +45,7 @@ app.post("/api/book", (req, res) => {
 
 // remove book in mongo by id from req.param
 app.delete("/api/books/:id", (req, res) => {
-  db.book.findById(req.params.id).then((book) => {
+  db.Book.findById(req.params.id).then((book) => {
     book.remove();
   }).then(() => {
     res.json(true);

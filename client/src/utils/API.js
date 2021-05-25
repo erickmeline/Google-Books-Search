@@ -17,5 +17,9 @@ export default {
   // Get saved books from the database
   getBooks: function () {
     return axios.get("/api/books").then(result => result.data);
+  },
+  // Get saved books from the database
+  getBook: function (_id) {
+    return axios.get("/api/book/" + _id).then(result => result.data);
   }
 };

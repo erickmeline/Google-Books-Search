@@ -13,13 +13,16 @@ const Search = () => {
 
   const handleSearch = (e) => {
     e.preventDefault();
-    API.getGoogle(inputEl.current.value).then((res) => {console.log('res',res);
+    API.getGoogle(inputEl.current.value).then((res) => {
       setsearchResults(res);
     });
   }
 
+  const isSaved = (id) => {
+    return API.getBook(id).then((res) => Boolean(res));
+  }
+
   const handleSave = (book) => {
-    console.log('save',book);
     API.saveBooks(book).then((res) => {
       console.log('res',res);
     });
@@ -36,7 +39,7 @@ const Search = () => {
         !searchResults.length && searchTerm.length ?
         <h3>No Results</h3> :
         searchResults.length && searchTerm.length ?
-        <div><h3>Results</h3><ul>{searchResults.map((book) => <Results key={book._id} book={book} handleSave={handleSave} />)}</ul></div> :
+        <div><h3>Results</h3><ul>{searchResults.map((book) => <Results key={book._id} book={book} handleSave={handleSave} isSaved={isSaved} />)}</ul></div> :
         null
       }
 

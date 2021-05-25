@@ -55,23 +55,13 @@ app.delete("/api/books/:id", (req, res) => {
 
 
 // fetch a book by id from saved books
-app.get("/api/book/id", (req, res) => {
+app.get("/api/book/:id", (req, res) => {
   db.Book.findById(req.params.id).then((book) => {
     res.json(book);
   }).catch(err => {
     res.status(400).json(err);
   });
 });
-
-function isItSaved(books) {
-  books = books.map((book) => {
-    db.Book.findById(book._id).then((foundBook) => {
-      console.log('SAVED',Boolean(foundBook));
-      book.saved = Boolean(foundBook);
-    });
-  })
-  return books;
-}
 
 
 // fetch google endpoint with search param
@@ -80,7 +70,7 @@ app.get("/api/google", (req, res) => {
   if (req.query.query) {
     axios.get(`https://www.googleapis.com/books/v1/volumes?q=${req.query.query}`).then((response) => {
       if (response.data.totalItems) {
-        const books = res.json(response.data.items.map((book) => {
+        const books = response.data.items.map((book) => {
           return {
             _id: book.id,
             title: book.volumeInfo.title,
@@ -89,8 +79,8 @@ app.get("/api/google", (req, res) => {
             image: book.volumeInfo.imageLinks ? book.volumeInfo.imageLinks.thumbnail : null,
             infoLink: book.volumeInfo.infoLink
           }
-        }));
-        return isItSaved(books);
+        });
+        res.json(books);
       }
       else {
         res.json([]);

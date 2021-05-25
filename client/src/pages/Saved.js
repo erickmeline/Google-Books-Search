@@ -12,18 +12,17 @@ const Saved = () => {
     },
   []);
 
-  const handleSave = (book) => {
-    console.log('save',book);
-    API.saveBook(book).then((res) => {
+  const handleSave = ({ _id} ) => {
+    API.deleteBook(_id).then((res) => {
       console.log('res',res);
-      setsavedResults(res);
+      // setsavedResults(res); TODO: LOAD SAVED BOOKS
     });
   }
 
   return (
     <div className="container">
       {
-        savedResults.length ? (savedResults.map((book) => <Results key={book.id} book={book} handleSave={handleSave} />))
+        savedResults.length ? <div><h3>Your Saved Books</h3>{savedResults.map((book) => <Results key={book._id} book={book} saved={true} handleSave={handleSave} />)}</div>
         : <h3>Nothing Saved Yet</h3>
       }
     </div>

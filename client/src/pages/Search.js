@@ -11,16 +11,10 @@ const Search = () => {
     setsearchTerm(e.target.value);
   }
 
-  const handleClick = (e) => {
+  const handleSearch = (e) => {
     e.preventDefault();
-    API.getGoogle(inputEl.current.value).then((res) => {
-      if (res.data.totalItems) {
-        const books = res.data.items.map(bookData => book(bookData));
-        setsearchResults(books);
-      }
-      else {
-        setsearchResults([]);
-      }
+    API.getGoogle(inputEl.current.value).then((res) => {console.log('res',res);
+      setsearchResults(res);
     });
   }
 
@@ -31,23 +25,12 @@ const Search = () => {
     });
   }
 
-  const book = (bookData) => {
-    return {
-      _id: bookData.id,
-      title: bookData.volumeInfo.title,
-      authors: bookData.volumeInfo.authors,
-      description: bookData.volumeInfo.description,
-      image: bookData.volumeInfo.imageLinks ? bookData.volumeInfo.imageLinks.thumbnail : null,
-      infoLink: bookData.volumeInfo.infoLink
-    }
-  }
-
   return (
     <div className="container">
       <form className="form-group">
         <h2>Search for and save Books of Interest</h2>
         <input ref={inputEl} className="form-control" type="text" onChange={(e) => {handleChange(e)}} placeholder="Search a Book" />
-        <button className="btn btn-dark mt-3 mb-5" onClick={(e) => handleClick(e)}>Search</button>
+        <button className="btn btn-dark mt-3 mb-5" onClick={(e) => handleSearch(e)}>Search</button>
       </form>
       {
         !searchResults.length && searchTerm.length ?

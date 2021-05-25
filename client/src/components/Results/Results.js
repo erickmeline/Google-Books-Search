@@ -1,8 +1,8 @@
 import React from "react";
 
-function Results(props) {
-  const book = props.book;
-  const handleSave = props.handleSave;
+function Results({ book, handleSave, saved }) {
+  // const book = props.book;
+  // const handleSave = props.handleSave;
   return (
     <li className="card mb-3">
       <div className="card-header">
@@ -13,7 +13,7 @@ function Results(props) {
         <div className="col-sm-5 float-right">
           <a href={book.infoLink} type="button" className="btn btn-dark mt-3 mb-5" target="_blank" rel="noopener noreferrer">View</a>
           &nbsp;
-          <button type="button" className="btn btn-dark mt-3 mb-5" onClick={() => handleSave(book)}>Save</button>
+          <button type="button" className="btn btn-dark mt-3 mb-5" onClick={() => handleSave(book)}>{saved === true ? 'Remove' : 'Save'}</button>
         </div>
       </div>
       <div className="row card-body">

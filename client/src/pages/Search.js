@@ -18,10 +18,6 @@ const Search = () => {
     });
   }
 
-  const isSaved = (id) => {
-    return API.getBook(id).then((res) => Boolean(res));
-  }
-
   const handleSave = (book) => {
     API.saveBooks(book).then((res) => {
       console.log('res',res);
@@ -39,10 +35,9 @@ const Search = () => {
         !searchResults.length && searchTerm.length ?
         <h3>No Results</h3> :
         searchResults.length && searchTerm.length ?
-        <div><h3>Results</h3><ul>{searchResults.map((book) => <Results key={book._id} book={book} handleSave={handleSave} isSaved={isSaved} />)}</ul></div> :
+        <div><h3>Results</h3><ul>{searchResults.map((book) => <Results key={book._id} book={book} handleSave={handleSave} />)}</ul></div> :
         null
       }
-
     </div>
   );
 };

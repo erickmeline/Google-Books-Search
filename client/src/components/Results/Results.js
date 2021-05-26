@@ -1,8 +1,11 @@
 import React from "react";
 
-function Results({ book, handleSave, isSaved }) {
-  // const book = props.book;
-  // const handleSave = props.handleSave;
+function Results({ book, handleSave, saved }) {
+
+  const handleClick = ({infoLink}) => {
+    window.location = infoLink;
+  }
+
   return (
     <li className="card mb-3">
       <div className="card-header">
@@ -11,9 +14,9 @@ function Results({ book, handleSave, isSaved }) {
           <h6>Written by: {book.authors}</h6>
         </div>
         <div className="col-sm-5 float-right">
-          <a href={book.infoLink} type="button" className="btn btn-dark mt-3 mb-5" target="_blank" rel="noopener noreferrer">View</a>
+          <button onClick={() => {handleClick(book)}} type="button" className="btn btn-dark mt-3 mb-5">View</button>
           &nbsp;
-          <button type="button" className="btn btn-dark mt-3 mb-5" onClick={() => handleSave(book)}>{isSaved(book._id) === true ? 'Remove' : 'Save'}</button>
+          <button type="button" className="btn btn-dark mt-3 mb-5" onClick={() => handleSave(book)}>{saved === true ? 'Remove' : 'Save'}</button>
         </div>
       </div>
       <div className="row card-body">

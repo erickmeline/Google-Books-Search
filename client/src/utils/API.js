@@ -7,7 +7,7 @@ export default {
     return axios.get(`/api/google?query=${query}`).then(result => result.data);
   },
   // Deletes the book with the given id
-  deleteBooks: function (_id) {
+  deleteBook: function (_id) {
     return axios.delete("/api/books/" + _id).then(result => result.data);
   },
   // Saves a book to the database

@@ -15,7 +15,9 @@ const Saved = () => {
   const handleSave = ({ _id} ) => {
     API.deleteBook(_id).then((res) => {
       console.log('res',res);
-      // setsavedResults(res); TODO: LOAD SAVED BOOKS
+      API.getBooks().then(res => {
+        setsavedResults(res);
+      });
     });
   }
 

@@ -1,29 +1,73 @@
-# Create React Express App
+# Google Books Search
+A React.js app that searches Google Books, and saves favorites for future purchase.
 
-## About This Boilerplate
+## Uses
 
-This setup allows for a Node/Express/React app which can be easily deployed to Heroku.
+JS/Axios/React/Express/Node
 
-The front-end React app will auto-reload as it's updated via webpack dev server, and the backend Express app will auto-reload independently with nodemon.
+-----------
 
-## Starting the app locally
-
-Start by installing front and backend dependencies. While in this directory, run the following command:
+## Installation Instructions
 
 ```
 npm install
 ```
 
-This should install node modules within the server and the client folder.
+-----------
 
-After both installations complete, run the following command in your terminal:
+## Usagage Information
 
 ```
 npm start
 ```
 
-Your app should now be running on <http://localhost:3000>. The Express server should intercept any AJAX requests from the client.
+-----------
 
-## Deployment (Heroku)
+## Live Demo
 
-To deploy, simply add and commit your changes, and push to Heroku. As is, the NPM scripts should take care of the rest.
+https://ericks-google-books-search.herokuapp.com
+
+-----------
+
+## Screen shot
+![screen shot](./public/screenshot.png)
+
+-----------
+
+## Code example
+```
+// fetch google endpoint with search param
+// example: https://www.googleapis.com/books/v1/volumes?q=coraline
+app.get("/api/google", (req, res) => {
+  if (req.query.query) {
+    axios.get(`https://www.googleapis.com/books/v1/volumes?q=${req.query.query}`).then((response) => {
+      if (response.data.totalItems) {
+        const books = response.data.items.map((book) => {
+          return {
+            _id: book.id,
+            title: book.volumeInfo.title,
+            authors: book.volumeInfo.authors,
+            description: book.volumeInfo.description,
+            image: book.volumeInfo.imageLinks ? book.volumeInfo.imageLinks.thumbnail : null,
+            infoLink: book.volumeInfo.infoLink
+          }
+        });
+        res.json(books);
+      }
+      else {
+        res.json([]);
+      }
+    })
+  }
+  else {
+    res.json(false);
+  }
+});
+```
+
+-----------
+
+## Questions
+Reach out with additional questions:
+
+[https://github.com/erickmeline](https://github.com/erickmeline) - [erickmeline@gmail.com](mailto://erickmeline@gmail.com)

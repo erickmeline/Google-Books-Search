@@ -30,7 +30,7 @@ https://ericks-google-books-search.herokuapp.com
 -----------
 
 ## Screen shot
-![screen shot](./public/screenshot.png)
+![screen shot](./client/public/screenshot.png)
 
 -----------
 

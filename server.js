@@ -10,6 +10,16 @@ const mongoose = require('mongoose');
 mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/booksDB", { useNewUrlParser: true });
 const db = require("./models");
 
+// mongoose.connect(
+//   process.env.MONGODB_URI || 'mongodb://localhost/booksDB',
+//   {
+//     useNewUrlParser: true,
+//     useUnifiedTopology: true,
+//     useCreateIndex: true,
+//     useFindAndModify: false
+//   }
+// );
+// const db = require("./models");
 
 // Define middleware here
 app.use(express.urlencoded({ extended: true }));
